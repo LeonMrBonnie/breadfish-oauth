@@ -1,37 +1,81 @@
-# NPM Module Boilerplate
+# Breadfish OAuth
 
-[![Build Status](https://travis-ci.org/flexdinesh/npm-module-boilerplate.svg?branch=master)](https://travis-ci.org/flexdinesh/npm-module-boilerplate) [![dependencies Status](https://david-dm.org/flexdinesh/npm-module-boilerplate/status.svg)](https://david-dm.org/flexdinesh/npm-module-boilerplate) [![devDependencies Status](https://david-dm.org/flexdinesh/npm-module-boilerplate/dev-status.svg)](https://david-dm.org/flexdinesh/npm-module-boilerplate?type=dev) [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
+A simple library to use the Breadfish OAuth API in NodeJS.
 
-**Start developing your NPM module in seconds** ✨
+## Table of Contents
 
-Readymade boilerplate setup with all the best practices to kick start your npm/node module development.
+-   [Installation](#installation)
+-   [Usage](#usage)
+-   [Support](#support)
+-   [Contributing](#contributing)
+-   [License](#license)
 
-Happy hacking =)
+---
 
-# Features
+## Installation
 
-* **ES6/ESNext** - Write _ES6_ code and _Babel_ will transpile it to ES5 for backwards compatibility
-* **Test** - _Mocha_ with _Istanbul_ coverage
-* **Lint** - Preconfigured _ESlint_ with _Airbnb_ config
-* **CI** - _TravisCI_ configuration setup
-* **Minify** - Built code will be minified for performance
+```sh
+npm install breadfish-oauth
+```
 
-# Commands
-- `npm run clean` - Remove `lib/` directory
-- `npm test` - Run tests with linting and coverage results.
-- `npm test:only` - Run tests without linting or coverage.
-- `npm test:watch` - You can even re-run tests on file changes!
-- `npm test:prod` - Run tests with minified code.
-- `npm run test:examples` - Test written examples on pure JS for better understanding module usage.
-- `npm run lint` - Run ESlint with airbnb-config
-- `npm run cover` - Get coverage report for your code.
-- `npm run build` - Babel will transpile ES6 => ES5 and minify the code.
-- `npm run prepublish` - Hook for npm. Do all the checks before publishing your module.
+---
 
-# Installation
-Just clone this repo and remove `.git` folder.
+## Usage
 
+```js
+const BreadfishOAuth = require("breadfish-oauth");
+```
 
-# License
+Or if you want to use it with ES6:
 
-MIT © Dinesh Pandiyan
+```js
+import BreadfishOAuth from "breadfish-oauth/es6";
+```
+
+---
+
+## Example
+
+```js
+const BreadfishOAuth = require("breadfish-oauth");
+let oauth = new BreadfishOAuth("PROJECT_ID", "API_KEY");
+```
+
+### Full example
+
+```js
+// Always use try/catch when you use the library!
+// Many of the functions can throw an error when you pass something invalid.
+try {
+    let oauth = new BreadfishOAuth("PROJECT_ID", "API_KEY"); // Creates a new oAuth instance (throws an error if the credentials are invalid)
+    // Scopes
+    let valid = BreadfishOAuth.isValidScope("test"); // Checks if the specified scope is valid (Returns boolean)
+    let availableScopes = BreadfishOAuth.getValidScopes(); // All available scopes in an array of strings
+    oauth.setScopes(availableScopes); // Sets an array of strings as the available scopes
+    oauth.removeScope(availableScopes[0]); // Removes the specified scope
+    oauth.clearScopes(); // Removes all scopes
+    oauth.addScope(availableScopes[0]); // Adds a single scope
+
+    // Redirect
+    oauth.setRedirectURL("https://example.com"); // Sets the redirect url (has to match the domain in the project settings)
+
+    // Getters (These don't have setters! Use the functions to set them)
+    let scopes = oauth.scopes;
+    let redirectURL = oauth.redirectURL;
+
+    // Generate the Authentification URL
+    let url = oauth.getAuthURL(); // Generates the auth url (Throws an error if the scopes are not set, or there is no redirect url set)
+} catch (e) {
+    console.error(e);
+}
+```
+
+---
+
+## Support
+
+Please [open an issue](https://github.com/leonmrbonnie/breadfish-oauth/issues/new) for support.
+
+## License
+
+MIT © Leon B.
