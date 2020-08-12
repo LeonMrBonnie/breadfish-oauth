@@ -10,15 +10,11 @@ A simple library to use the Breadfish OAuth API in NodeJS.
 -   [Contributing](#contributing)
 -   [License](#license)
 
----
-
 ## Installation
 
 ```sh
 npm install breadfish-oauth
 ```
-
----
 
 ## Usage
 
@@ -31,8 +27,6 @@ Or if you want to use it with ES6:
 ```js
 import BreadfishOAuth from "breadfish-oauth/es6";
 ```
-
----
 
 ## Example
 
@@ -69,8 +63,6 @@ try {
     console.error(e);
 }
 ```
-
----
 
 ## Support
 
