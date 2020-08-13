@@ -42,18 +42,20 @@ class OAuth {
         this.apiKey = apiKey;
         this._redirectUrl = "";
         this._scopes = [];
+
+        this.checkCredentials();
     }
 
     /**
      * Checks if the given OAuth credentials are correct
      *
-     * Check the credentials before using any other method!
+     * This is used internally.
      *
      * @author LeonMrBonnie
      * @memberof OAuth
      */
     async checkCredentials() {
-        let valid = /*await fetch();*/ false;
+        let valid = /*await fetch();*/ true;
         if (!valid) throw new CredentialsError();
         else return;
     }
