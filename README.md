@@ -42,7 +42,8 @@ let oauth = new BreadfishOAuth("PROJECT_ID", "API_KEY");
 // Many of the functions can throw an error when you pass something invalid.
 try {
     let oauth = new BreadfishOAuth("PROJECT_ID", "API_KEY"); // Creates a new oAuth instance (throws an error if the credentials are invalid)
-    // Verify the credentials! Make sure to call this before calling any other function
+    // Verifies the credentials. This is not required, but is advised,
+    // because the generated Auth URL will not work if the credentials are wrong
     await oauth.checkCredentials();
     // Scopes
     let valid = BreadfishOAuth.isValidScope("test"); // Checks if the specified scope is valid (Returns boolean)
