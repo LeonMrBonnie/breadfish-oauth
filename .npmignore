@@ -26,3 +26,4 @@ CHANGELOG.md
 
 # VSCode
 .vscode/*
+*.code-workspace

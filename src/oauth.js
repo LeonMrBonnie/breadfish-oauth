@@ -1,5 +1,5 @@
-import bent from "bent";
 import { ScopeError, CredentialsError, URLError } from "./errors";
+import phin from "phin";
 
 const ALLOWED_SCOPES = [
     "userID",
@@ -22,15 +22,12 @@ const ALLOWED_SCOPES = [
     "warnings_info",
 ];
 
-const BASE_URL = "https://breadfish.de/oauth/auth";
-
-const fetch = bent("json");
+const BASE_URL = "https://breadfish.de/oauth";
 
 class OAuth {
     /**
      * Creates a new OAuth Instance
      *
-     * This can throw an error!
      *
      * @author LeonMrBonnie
      * @param {String} projectId The id of the project
@@ -42,20 +39,23 @@ class OAuth {
         this.apiKey = apiKey;
         this._redirectUrl = "";
         this._scopes = [];
-
-        this.checkCredentials();
     }
 
     /**
      * Checks if the given OAuth credentials are correct
      *
-     * This is used internally.
+     * Use this before using any other method!
      *
      * @author LeonMrBonnie
      * @memberof OAuth
      */
     async checkCredentials() {
-        let valid = /*await fetch();*/ true;
+        let response = await phin(
+            `${BASE_URL}/api/credentials/check?id=${
+                this.projectId.split("-")[1]
+            }&key=${this.apiKey}`
+        );
+        let valid = JSON.parse(response.body).response;
         if (!valid) throw new CredentialsError();
         else return;
     }
@@ -138,7 +138,7 @@ class OAuth {
         if (!this.scopes || !this.scopes.length) throw new ScopeError();
         if (!this.redirectUrl || !this.redirectUrl.length) throw new URLError();
 
-        return `${BASE_URL}/${
+        return `${BASE_URL}/auth/${
             this.projectId.split("-")[1]
         }?scope=${this.scopes.toString()}&redirect=${this.redirectUrl}`;
     }

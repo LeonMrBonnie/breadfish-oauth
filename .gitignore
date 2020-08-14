@@ -45,3 +45,4 @@ others
 
 # VSCode
 .vscode/*
+*.code-workspace
