@@ -26,26 +26,4 @@ export default [
             }),
         ],
     },
-    {
-        input: "src/index.js",
-        output: {
-            file: "lib/es6/index.js",
-            format: "es",
-            name: "BreadfishOAuth",
-        },
-        plugins: [
-            pluginCommonJs({
-                include: "node_modules/**",
-            }),
-            nodeResolve({
-                browser: true,
-            }),
-            terser({
-                output: {
-                    comments: "all",
-                },
-                mangle: false,
-            }),
-        ],
-    },
 ];

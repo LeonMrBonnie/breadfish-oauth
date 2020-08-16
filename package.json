@@ -10,8 +10,7 @@
         "test": "mocha --require esm --recursive"
     },
     "exports": {
-        ".": "./lib/index.js",
-        "./es6": "./lib/es6/index.js"
+        ".": "./lib/index.js"
     },
     "files": [
         "lib",
