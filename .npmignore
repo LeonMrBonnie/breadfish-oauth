@@ -23,6 +23,7 @@ CHANGELOG.md
 .eslintrc
 .babelrc
 .gitignore
+rollup.config.js
 
 # VSCode
 .vscode/*
